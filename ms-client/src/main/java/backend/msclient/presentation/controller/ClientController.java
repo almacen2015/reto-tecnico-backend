@@ -31,7 +31,7 @@ public class ClientController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<ClientResponse> deleteClient(@PathVariable Long id) {
+    public Mono<ClientResponse> deleteClient(@PathVariable("id") Long id) {
         log.info("Request received to delete client with id {}", id);
         return Mono.fromCallable(() -> deleteClientUseCase.execute(id))
                 .map(ClientMapper::toResponse)
@@ -62,7 +62,7 @@ public class ClientController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<Client> getClientById(@PathVariable Long id) {
+    public Mono<Client> getClientById(@PathVariable("id") Long id) {
         log.info("Request received for get client by id {}", id);
         return Mono.fromCallable(() -> getClientByIdUseCase.execute(id))
                 .subscribeOn(Schedulers.boundedElastic())
