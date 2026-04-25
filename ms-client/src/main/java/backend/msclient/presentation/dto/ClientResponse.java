@@ -1,6 +1,7 @@
 package backend.msclient.presentation.dto;
 
 public record ClientResponse(
+        Long id,
         String name,
         String gender,
         String identification,
