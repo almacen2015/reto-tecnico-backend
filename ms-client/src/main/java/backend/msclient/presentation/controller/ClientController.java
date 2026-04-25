@@ -2,6 +2,7 @@ package backend.msclient.presentation.controller;
 
 import backend.msclient.application.mapper.ClientMapper;
 import backend.msclient.application.usecase.CreateClientUseCase;
+import backend.msclient.application.usecase.DeleteClientUseCase;
 import backend.msclient.application.usecase.GetClientByIdUseCase;
 import backend.msclient.domain.model.Client;
 import backend.msclient.presentation.dto.ClientRequest;
@@ -19,10 +20,28 @@ public class ClientController {
 
     private final GetClientByIdUseCase getClientByIdUseCase;
     private final CreateClientUseCase createClientUseCase;
+    private final DeleteClientUseCase deleteClientUseCase;
 
-    public ClientController(GetClientByIdUseCase getClientByIdUseCase, CreateClientUseCase createClientUseCase) {
+    public ClientController(GetClientByIdUseCase getClientByIdUseCase, CreateClientUseCase createClientUseCase, DeleteClientUseCase deleteClientUseCase) {
         this.getClientByIdUseCase = getClientByIdUseCase;
         this.createClientUseCase = createClientUseCase;
+        this.deleteClientUseCase = deleteClientUseCase;
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<Void> deleteCliente(@PathVariable Long id) {
+
+        log.info("Request received to delete client with id: {}", id);
+
+        return Mono.fromCallable(() -> deleteClientUseCase.execute(id))
+                .subscribeOn(Schedulers.boundedElastic())
+                .doOnSuccess(client ->
+                        log.info("Client deleted: {}", id)
+                )
+                .doOnError(error ->
+                        log.error("Error deleting cliente: {}", id, error)
+                )
+                .then();
     }
 
     @PostMapping
