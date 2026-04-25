@@ -14,5 +14,5 @@ import lombok.experimental.SuperBuilder;
 public class Client extends Person {
     private Long id;
     private String password;
-    private boolean status;
+    private Boolean status;
 }

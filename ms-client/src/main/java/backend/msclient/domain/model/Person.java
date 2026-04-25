@@ -1,8 +1,9 @@
 package backend.msclient.domain.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
