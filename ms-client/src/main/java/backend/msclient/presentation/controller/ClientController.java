@@ -9,6 +9,7 @@ import backend.msclient.presentation.dto.ClientRequest;
 import backend.msclient.presentation.dto.ClientResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -29,6 +30,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<ClientResponse> deleteClient(@PathVariable Long id) {
         log.info("Request received to delete client with id {}", id);
         return Mono.fromCallable(() -> deleteClientUseCase.execute(id))
@@ -41,6 +43,7 @@ public class ClientController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<ClientResponse> createClient(@RequestBody @Valid ClientRequest request) {
 
         log.info("Request received to create client");
@@ -58,6 +61,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<Client> getClientById(@PathVariable Long id) {
         log.info("Request received for get client by id {}", id);
         return Mono.fromCallable(() -> getClientByIdUseCase.execute(id))
