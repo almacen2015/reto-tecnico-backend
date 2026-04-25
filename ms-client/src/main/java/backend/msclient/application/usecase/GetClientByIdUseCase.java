@@ -1,5 +1,6 @@
 package backend.msclient.application.usecase;
 
+import backend.msclient.domain.exception.ClientNotFoundException;
 import backend.msclient.domain.model.Client;
 import backend.msclient.domain.repository.ClientRepository;
 
@@ -12,6 +13,6 @@ public class GetClientByIdUseCase {
 
     public Client execute(Long id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente not found"));
+                .orElseThrow(() -> new ClientNotFoundException(id));
     }
 }
