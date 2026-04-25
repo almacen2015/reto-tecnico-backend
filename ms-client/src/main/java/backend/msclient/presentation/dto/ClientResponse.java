@@ -1,5 +1,8 @@
 package backend.msclient.presentation.dto;
 
+import lombok.Builder;
+
+@Builder
 public record ClientResponse(
         Long id,
         String name,
