@@ -29,19 +29,15 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteCliente(@PathVariable Long id) {
-
-        log.info("Request received to delete client with id: {}", id);
-
+    public Mono<ClientResponse> deleteClient(@PathVariable Long id) {
+        log.info("Request received to delete client with id {}", id);
         return Mono.fromCallable(() -> deleteClientUseCase.execute(id))
+                .map(ClientMapper::toResponse)
                 .subscribeOn(Schedulers.boundedElastic())
-                .doOnSuccess(client ->
-                        log.info("Client deleted: {}", id)
-                )
-                .doOnError(error ->
-                        log.error("Error deleting cliente: {}", id, error)
-                )
-                .then();
+                .doOnSuccess(response ->
+                        log.info("Client deleted successfully"))
+                .doOnError(throwable ->
+                        log.error("Client delete failed with id: {}", id, throwable));
     }
 
     @PostMapping
