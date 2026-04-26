@@ -6,10 +6,12 @@ import backend.msaccount.domain.model.MovementType;
 import backend.msaccount.domain.repository.AccountRepository;
 import backend.msaccount.domain.repository.MovementRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Service
 public class RegisterMovementUseCase {
     private final AccountRepository accountRepository;
     private final MovementRepository movementRepository;
