@@ -13,6 +13,7 @@ public class AccountMapper {
                 .type(entity.getType())
                 .initialBalance(entity.getInitialBalance())
                 .status(entity.getStatus())
+                .clientId(entity.getClientId())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class AccountMapper {
                 .type(domain.getType())
                 .initialBalance(domain.getInitialBalance())
                 .status(domain.getStatus())
+                .clientId(domain.getClientId())
                 .build();
     }
 }
