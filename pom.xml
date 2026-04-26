@@ -13,6 +13,7 @@
 
   <modules>
     <module>ms-client</module>
+    <module>ms-account</module>
     <!-- luego agregarás -->
     <!-- <module>ms-account</module> -->
   </modules>
