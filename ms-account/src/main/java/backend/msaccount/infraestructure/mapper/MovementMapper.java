@@ -14,7 +14,7 @@ public class MovementMapper {
                 .type(entity.getType())
                 .value(entity.getValue())
                 .balance(entity.getBalance())
-                .accountId(entity.getAccount().getId())
+                .accountId(entity.getAccount() != null ? entity.getAccount().getId() : null)
                 .build();
     }
 
