@@ -1,11 +1,11 @@
-package backend.msaccount.presentation;
+package backend.msaccount.presentation.mapper;
 
 import backend.msaccount.domain.model.Account;
 import backend.msaccount.presentation.dto.AccountRequest;
 import backend.msaccount.presentation.dto.AccountResponse;
 
 public class AccountMapper {
-    public Account toDomain(AccountRequest request) {
+    public static Account toDomain(AccountRequest request) {
         return Account.builder()
                 .clientId(request.clientId())
                 .number(request.number())
@@ -15,7 +15,7 @@ public class AccountMapper {
                 .build();
     }
 
-    public AccountResponse toResponse(Account account) {
+    public static AccountResponse toResponse(Account account) {
         return AccountResponse.builder()
                 .id(account.getId())
                 .clientId(account.getClientId())
