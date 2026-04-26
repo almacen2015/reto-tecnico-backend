@@ -1,6 +1,5 @@
 package backend.msaccount.presentation.dto;
 
-import backend.msaccount.domain.model.MovementType;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ public record MovementResponse(
         Long id,
         Long accountId,
         LocalDateTime date,
-        MovementType type,
+        String type,
         Double value,
         Double balance
 ) {
