@@ -1,17 +1,21 @@
 package backend.msaccount.application.usecase;
 
+import backend.msaccount.domain.exception.InsufficientBalanceException;
+import backend.msaccount.domain.exception.InvalidMovementException;
 import backend.msaccount.domain.model.Account;
 import backend.msaccount.domain.model.Movement;
 import backend.msaccount.domain.model.MovementType;
 import backend.msaccount.domain.repository.AccountRepository;
 import backend.msaccount.domain.repository.MovementRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class RegisterMovementUseCase {
     private final AccountRepository accountRepository;
     private final MovementRepository movementRepository;
@@ -24,15 +28,18 @@ public class RegisterMovementUseCase {
     @Transactional
     public Movement execute(Movement movement) {
         if (movement == null) {
-            throw new IllegalArgumentException("Movement cannot be null");
+            throw new InvalidMovementException("Movement cannot be null");
         }
 
         if (movement.getValue() <= 0) {
-            throw new IllegalArgumentException("Value must be greater than 0");
+            throw new InvalidMovementException("Value must be greater than 0");
         }
 
         Account account = accountRepository.findById(movement.getAccountId())
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> {
+                    log.error("Account not found with id: {}", movement.getAccountId());
+                    return new RuntimeException("Account not found");
+                });
 
         double currentBalance = account.getInitialBalance();
 
@@ -52,7 +59,7 @@ public class RegisterMovementUseCase {
 
         if (Objects.equals(movement.getType(), MovementType.DEBIT.name())) {
             if (currentBalance < movement.getValue()) {
-                throw new RuntimeException("Insufficient balance");
+                throw new InsufficientBalanceException("Insufficient balance");
             }
 
             newBalance = currentBalance - movement.getValue();
@@ -62,7 +69,7 @@ public class RegisterMovementUseCase {
             newBalance = currentBalance + movement.getValue();
 
         } else {
-            throw new IllegalArgumentException("Invalid movement type");
+            throw new InvalidMovementException("Invalid movement type");
         }
 
         return newBalance;

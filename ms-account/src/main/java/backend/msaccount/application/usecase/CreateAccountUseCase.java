@@ -1,11 +1,14 @@
 package backend.msaccount.application.usecase;
 
+import backend.msaccount.domain.exception.ClientNotFoundException;
 import backend.msaccount.domain.model.Account;
 import backend.msaccount.domain.repository.AccountRepository;
 import backend.msaccount.infraestructure.client.ClientService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class CreateAccountUseCase {
     private final AccountRepository accountRepository;
     private final ClientService clientService;
@@ -20,7 +23,8 @@ public class CreateAccountUseCase {
                 .block();
 
         if (Boolean.FALSE.equals(exists)) {
-            throw new RuntimeException("Client not found");
+            log.error("Client not found with id: {}", account.getClientId());
+            throw new ClientNotFoundException("Client not found");
         }
 
         return accountRepository.save(account);
