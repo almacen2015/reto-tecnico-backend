@@ -1,6 +1,6 @@
 package backend.msaccount.infraestructure.mapper;
 
-import backend.msaccount.domain.entity.AccountEntity;
+import backend.msaccount.infraestructure.entity.AccountEntity;
 import backend.msaccount.domain.model.Account;
 
 public class AccountMapper {

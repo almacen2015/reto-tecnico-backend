@@ -1,7 +1,7 @@
 package backend.msaccount.infraestructure.mapper;
 
-import backend.msaccount.domain.entity.AccountEntity;
-import backend.msaccount.domain.entity.MovementEntity;
+import backend.msaccount.infraestructure.entity.AccountEntity;
+import backend.msaccount.infraestructure.entity.MovementEntity;
 import backend.msaccount.domain.model.Movement;
 
 public class MovementMapper {
