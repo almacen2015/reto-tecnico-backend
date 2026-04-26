@@ -1,5 +1,6 @@
 package backend.msaccount.application.usecase;
 
+import backend.msaccount.domain.exception.AccountNotFoundException;
 import backend.msaccount.domain.exception.InsufficientBalanceException;
 import backend.msaccount.domain.exception.InvalidMovementException;
 import backend.msaccount.domain.model.Account;
@@ -38,7 +39,7 @@ public class RegisterMovementUseCase {
         Account account = accountRepository.findById(movement.getAccountId())
                 .orElseThrow(() -> {
                     log.error("Account not found with id: {}", movement.getAccountId());
-                    return new RuntimeException("Account not found");
+                    return new AccountNotFoundException("Account not found");
                 });
 
         double currentBalance = account.getInitialBalance();
