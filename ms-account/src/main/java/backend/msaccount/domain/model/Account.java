@@ -13,4 +13,5 @@ public class Account {
     private String type;
     private Double initialBalance;
     private Boolean status;
+    private Long clientId;
 }

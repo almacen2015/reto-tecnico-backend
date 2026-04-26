@@ -19,9 +19,15 @@ public class AccountEntity {
     @Column(nullable = false, unique = true)
     private String number;
 
+    @Column(nullable = false)
     private String type;
 
+    @Column(nullable = false)
     private Double initialBalance;
 
+    @Column(nullable = false)
     private Boolean status;
+
+    @Column(name = "client_id", nullable = false)
+    private Long clientId;
 }
