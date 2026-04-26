@@ -8,6 +8,7 @@ import backend.msaccount.presentation.dto.AccountRequest;
 import backend.msaccount.presentation.dto.AccountResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -26,6 +27,7 @@ public class AccountController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<AccountResponse> create(@Valid @RequestBody AccountRequest request) {
 
         log.info("Creating account for clientId={}", request.clientId());
@@ -43,6 +45,7 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<AccountResponse> getById(@PathVariable("id") Long id) {
 
         log.info("Fetching account id={}", id);
