@@ -10,7 +10,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.ServerWebInputException;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
@@ -18,51 +20,67 @@ import java.time.LocalDateTime;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(ServerWebInputException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Mono<ErrorResponse> handleInvalidEnum(ServerWebInputException ex, ServerWebExchange request) {
+        log.error(ex.getMessage(), ex);
+
+        String message = "Invalid request";
+
+        return Mono.just(
+                ErrorResponse.builder()
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .message(message)
+                        .path(request.getRequest().getPath().toString())
+                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
+
     @ExceptionHandler(AccountNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleAccountNotFound(AccountNotFoundException ex, WebRequest request) {
+    public Mono<ErrorResponse> handleAccountNotFound(AccountNotFoundException ex, ServerWebExchange request) {
 
         log.error("Account not found: {}", ex.getMessage());
 
-        return ErrorResponse.builder()
+        return Mono.just(ErrorResponse.builder()
                 .message(ex.getMessage())
                 .status(HttpStatus.NOT_FOUND.value())
-                .path(request.getDescription(false))
+                .path(request.getRequest().getPath().toString())
                 .timestamp(LocalDateTime.now())
-                .build();
+                .build());
     }
 
     @ExceptionHandler(InsufficientBalanceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleInsufficientBalance(InsufficientBalanceException ex, WebRequest request) {
+    public Mono<ErrorResponse> handleInsufficientBalance(InsufficientBalanceException ex, ServerWebExchange request) {
 
         log.error("Insufficient balance: {}", ex.getMessage());
 
-        return ErrorResponse.builder()
+        return Mono.just(ErrorResponse.builder()
                 .message(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
-                .path(request.getDescription(false))
+                .path(request.getRequest().getPath().toString())
                 .timestamp(LocalDateTime.now())
-                .build();
+                .build());
     }
 
     @ExceptionHandler(InvalidMovementException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleInvalidMovement(InvalidMovementException ex, WebRequest request) {
+    public Mono<ErrorResponse> handleInvalidMovement(InvalidMovementException ex, ServerWebExchange request) {
 
         log.error("Invalid movement: {}", ex.getMessage());
 
-        return ErrorResponse.builder()
+        return Mono.just(ErrorResponse.builder()
                 .message(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
-                .path(request.getDescription(false))
+                .path(request.getRequest().getPath().toString())
                 .timestamp(LocalDateTime.now())
-                .build();
+                .build());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidation(MethodArgumentNotValidException ex, WebRequest request) {
+    public Mono<ErrorResponse> handleValidation(MethodArgumentNotValidException ex, ServerWebExchange request) {
 
         String message = ex.getBindingResult()
                 .getFieldErrors()
@@ -73,25 +91,25 @@ public class GlobalExceptionHandler {
 
         log.error("Validation error: {}", message);
 
-        return ErrorResponse.builder()
+        return Mono.just(ErrorResponse.builder()
                 .message(message)
                 .status(HttpStatus.BAD_REQUEST.value())
-                .path(request.getDescription(false))
+                .path(request.getRequest().getPath().toString())
                 .timestamp(LocalDateTime.now())
-                .build();
+                .build());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleGeneric(Exception ex, WebRequest request) {
+    public Mono<ErrorResponse> handleGeneric(Exception ex, ServerWebExchange request) {
 
         log.error("Unexpected error", ex);
 
-        return ErrorResponse.builder()
+        return Mono.just(ErrorResponse.builder()
                 .message("Internal server error")
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .path(request.getDescription(false))
+                .path(request.getRequest().getPath().toString())
                 .timestamp(LocalDateTime.now())
-                .build();
+                .build());
     }
 }
