@@ -8,7 +8,9 @@ import backend.msaccount.infrastructure.mapper.MovementMapper;
 import backend.msaccount.infrastructure.repository.AccountJpaRepository;
 import backend.msaccount.infrastructure.repository.MovementJpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,17 @@ public class MovementRepositoryImpl implements MovementRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Movement> findByAccountIdAndDateBetween(Long accountId, LocalDateTime startDate, LocalDateTime endDate) {
+        List<MovementEntity> movementsEntity = movementJpaRepository.findByAccountIdAndDateBetween(accountId, startDate, endDate);
+
+        return movementsEntity.stream()
+                .map(MovementMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
     public Movement save(Movement movement) {
         AccountEntity account = accountJpaRepository.findById(movement.getAccountId())
                 .orElseThrow(() -> new RuntimeException("Account not found"));
@@ -33,6 +46,7 @@ public class MovementRepositoryImpl implements MovementRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Movement> findByAccountId(Long accountId) {
         return movementJpaRepository.findByAccountId(accountId)
                 .stream()
