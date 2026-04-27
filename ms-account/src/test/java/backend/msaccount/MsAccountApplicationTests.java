@@ -55,8 +55,4 @@ class MsAccountApplicationTests {
                 .jsonPath("$.balance").isEqualTo(100);
     }
 
-    @Test
-    void contextLoads() {
-    }
-
 }
