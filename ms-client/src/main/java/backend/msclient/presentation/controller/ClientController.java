@@ -16,7 +16,7 @@ import reactor.core.scheduler.Schedulers;
 
 @Slf4j
 @RestController
-@RequestMapping(name = "/api/v1/customers")
+@RequestMapping("/api/v1/customers")
 public class ClientController {
 
     private final GetClientByIdUseCase getClientByIdUseCase;
