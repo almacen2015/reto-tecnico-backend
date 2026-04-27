@@ -1,0 +1,2 @@
+CREATE DATABASE clientdb;
+CREATE DATABASE accountdb;
