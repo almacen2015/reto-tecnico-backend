@@ -1,4 +1,4 @@
-package backend.msaccount.infraestructure.entity;
+package backend.msaccount.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,7 +22,7 @@ public class MovementEntity {
 
     private String type;
 
-    private Double value;
+    private Double amount;
 
     private Double balance;
 

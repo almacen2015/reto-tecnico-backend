@@ -15,6 +15,6 @@ public record MovementRequest(
 
         @NotNull(message = "Value is required")
         @Positive(message = "Value must be greater than zero")
-        Double value
+        Double amount
 ) {
 }

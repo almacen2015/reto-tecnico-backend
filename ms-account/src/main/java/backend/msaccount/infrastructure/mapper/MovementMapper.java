@@ -1,7 +1,7 @@
-package backend.msaccount.infraestructure.mapper;
+package backend.msaccount.infrastructure.mapper;
 
-import backend.msaccount.infraestructure.entity.AccountEntity;
-import backend.msaccount.infraestructure.entity.MovementEntity;
+import backend.msaccount.infrastructure.entity.AccountEntity;
+import backend.msaccount.infrastructure.entity.MovementEntity;
 import backend.msaccount.domain.model.Movement;
 
 public class MovementMapper {
@@ -12,7 +12,7 @@ public class MovementMapper {
                 .id(entity.getId())
                 .date(entity.getDate())
                 .type(entity.getType())
-                .value(entity.getValue())
+                .amount(entity.getAmount())
                 .balance(entity.getBalance())
                 .accountId(entity.getAccount() != null ? entity.getAccount().getId() : null)
                 .build();
@@ -25,7 +25,7 @@ public class MovementMapper {
                 .id(domain.getId())
                 .date(domain.getDate())
                 .type(domain.getType())
-                .value(domain.getValue())
+                .amount(domain.getAmount())
                 .balance(domain.getBalance())
                 .account(accountEntity)
                 .build();

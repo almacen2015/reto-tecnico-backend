@@ -39,7 +39,7 @@ class RegisterMovementUseCaseTest {
         Movement movement = Movement.builder()
                 .accountId(1L)
                 .type(MovementType.CREDIT.name())
-                .value(50.00)
+                .amount(50.00)
                 .date(LocalDateTime.now())
                 .build();
 
@@ -60,7 +60,7 @@ class RegisterMovementUseCaseTest {
         Movement movement = Movement.builder()
                 .accountId(1L)
                 .type(MovementType.DEBIT.name())
-                .value(100.00)
+                .amount(100.00)
                 .date(LocalDateTime.now())
                 .build();
 
@@ -81,7 +81,7 @@ class RegisterMovementUseCaseTest {
         Movement movement = Movement.builder()
                 .accountId(1L)
                 .type(MovementType.CREDIT.name())
-                .value(50.00)
+                .amount(50.00)
                 .date(LocalDateTime.now())
                 .build();
 
@@ -108,7 +108,7 @@ class RegisterMovementUseCaseTest {
         Movement movement = Movement.builder()
                 .accountId(1L)
                 .type(MovementType.DEBIT.name())
-                .value(40.00)
+                .amount(40.00)
                 .date(LocalDateTime.now())
                 .build();
 

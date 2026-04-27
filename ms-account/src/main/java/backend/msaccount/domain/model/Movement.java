@@ -13,7 +13,7 @@ public class Movement {
     private Long id;
     private LocalDateTime date;
     private String type;
-    private Double value;
+    private Double amount;
     private Double balance;
     private Long accountId;
 }

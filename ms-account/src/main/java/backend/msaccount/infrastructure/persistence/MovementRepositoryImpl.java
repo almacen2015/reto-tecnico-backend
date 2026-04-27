@@ -1,12 +1,12 @@
-package backend.msaccount.infraestructure.persistence;
+package backend.msaccount.infrastructure.persistence;
 
 import backend.msaccount.domain.model.Movement;
 import backend.msaccount.domain.repository.MovementRepository;
-import backend.msaccount.infraestructure.entity.AccountEntity;
-import backend.msaccount.infraestructure.entity.MovementEntity;
-import backend.msaccount.infraestructure.mapper.MovementMapper;
-import backend.msaccount.infraestructure.repository.AccountJpaRepository;
-import backend.msaccount.infraestructure.repository.MovementJpaRepository;
+import backend.msaccount.infrastructure.entity.AccountEntity;
+import backend.msaccount.infrastructure.entity.MovementEntity;
+import backend.msaccount.infrastructure.mapper.MovementMapper;
+import backend.msaccount.infrastructure.repository.AccountJpaRepository;
+import backend.msaccount.infrastructure.repository.MovementJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

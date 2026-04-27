@@ -1,4 +1,4 @@
-package backend.msaccount.infraestructure.entity;
+package backend.msaccount.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

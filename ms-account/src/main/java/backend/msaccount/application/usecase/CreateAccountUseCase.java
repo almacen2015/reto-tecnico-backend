@@ -3,7 +3,7 @@ package backend.msaccount.application.usecase;
 import backend.msaccount.domain.exception.ClientNotFoundException;
 import backend.msaccount.domain.model.Account;
 import backend.msaccount.domain.repository.AccountRepository;
-import backend.msaccount.infraestructure.client.ClientService;
+import backend.msaccount.infrastructure.client.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

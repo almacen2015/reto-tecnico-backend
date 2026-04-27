@@ -1,8 +1,8 @@
-package backend.msclient.infraestructure.persistence.repository;
+package backend.msclient.infrastructure.persistence.repository;
 
 import backend.msclient.domain.model.Client;
 import backend.msclient.domain.repository.ClientRepository;
-import backend.msclient.infraestructure.persistence.entity.ClientEntity;
+import backend.msclient.infrastructure.persistence.entity.ClientEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,10 +1,10 @@
-package backend.msaccount.infraestructure.persistence;
+package backend.msaccount.infrastructure.persistence;
 
 import backend.msaccount.domain.model.Account;
 import backend.msaccount.domain.repository.AccountRepository;
-import backend.msaccount.infraestructure.entity.AccountEntity;
-import backend.msaccount.infraestructure.mapper.AccountMapper;
-import backend.msaccount.infraestructure.repository.AccountJpaRepository;
+import backend.msaccount.infrastructure.entity.AccountEntity;
+import backend.msaccount.infrastructure.mapper.AccountMapper;
+import backend.msaccount.infrastructure.repository.AccountJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

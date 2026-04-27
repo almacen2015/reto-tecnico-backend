@@ -32,7 +32,7 @@ public class RegisterMovementUseCase {
             throw new InvalidMovementException("Movement cannot be null");
         }
 
-        if (movement.getValue() <= 0) {
+        if (movement.getAmount() <= 0) {
             throw new InvalidMovementException("Value must be greater than 0");
         }
 
@@ -59,15 +59,15 @@ public class RegisterMovementUseCase {
         double newBalance;
 
         if (Objects.equals(movement.getType(), MovementType.DEBIT.name())) {
-            if (currentBalance < movement.getValue()) {
+            if (currentBalance < movement.getAmount()) {
                 throw new InsufficientBalanceException("Insufficient balance");
             }
 
-            newBalance = currentBalance - movement.getValue();
+            newBalance = currentBalance - movement.getAmount();
 
         } else if (Objects.equals(movement.getType(), MovementType.CREDIT.name())) {
 
-            newBalance = currentBalance + movement.getValue();
+            newBalance = currentBalance + movement.getAmount();
 
         } else {
             throw new InvalidMovementException("Invalid movement type");

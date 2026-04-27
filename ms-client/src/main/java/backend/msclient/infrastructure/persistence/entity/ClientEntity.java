@@ -1,4 +1,4 @@
-package backend.msclient.infraestructure.persistence.entity;
+package backend.msclient.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -11,7 +11,7 @@ public class MovementMapper {
         return Movement.builder()
                 .accountId(request.accountId())
                 .type(request.type().name())
-                .value(request.value())
+                .amount(request.amount())
                 .date(LocalDateTime.now())
                 .build();
     }
@@ -22,7 +22,7 @@ public class MovementMapper {
                 .accountId(movement.getAccountId())
                 .date(movement.getDate())
                 .type(movement.getType())
-                .value(movement.getValue())
+                .amount(movement.getAmount())
                 .balance(movement.getBalance())
                 .build();
     }

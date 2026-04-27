@@ -1,6 +1,6 @@
-package backend.msaccount.infraestructure.repository;
+package backend.msaccount.infrastructure.repository;
 
-import backend.msaccount.infraestructure.entity.MovementEntity;
+import backend.msaccount.infrastructure.entity.MovementEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

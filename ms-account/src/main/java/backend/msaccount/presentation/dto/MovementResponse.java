@@ -10,7 +10,7 @@ public record MovementResponse(
         Long accountId,
         LocalDateTime date,
         String type,
-        Double value,
+        Double amount,
         Double balance
 ) {
 }
