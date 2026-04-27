@@ -52,7 +52,7 @@ class MsAccountApplicationTests {
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody()
-                .jsonPath("$.initialBalance").isEqualTo(100);
+                .jsonPath("$.balance").isEqualTo(100);
     }
 
     @Test
