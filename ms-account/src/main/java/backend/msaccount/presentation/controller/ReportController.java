@@ -2,7 +2,10 @@ package backend.msaccount.presentation.controller;
 
 import backend.msaccount.application.usecase.GenerateReportUseCase;
 import backend.msaccount.presentation.dto.ReportResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -17,7 +20,11 @@ public class ReportController {
 
     private final GenerateReportUseCase useCase;
 
+    @Operation(summary = "List a report by client and dates", description = "List a report by client and dates")
+    @ApiResponse(responseCode = "200", description = "List found")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @GetMapping("/{clientId}")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<ResponseEntity<ReportResponse>> generateReport(
             @PathVariable("clientId") Long clientId,
             @RequestParam("startDate") LocalDate startDate,

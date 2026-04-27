@@ -6,6 +6,8 @@ import backend.msaccount.domain.model.Account;
 import backend.msaccount.presentation.mapper.AccountMapper;
 import backend.msaccount.presentation.dto.AccountRequest;
 import backend.msaccount.presentation.dto.AccountResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class AccountController {
         this.getAccountByIdUseCase = getAccountByIdUseCase;
     }
 
+    @Operation(summary = "Create an account", description = "Create an account")
+    @ApiResponse(responseCode = "201", description = "Account created")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<AccountResponse> create(@Valid @RequestBody AccountRequest request) {
@@ -44,6 +49,9 @@ public class AccountController {
                         log.error("Error creating account", err));
     }
 
+    @Operation(summary = "Get an account", description = "Get an account")
+    @ApiResponse(responseCode = "200", description = "Account found")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Mono<AccountResponse> getById(@PathVariable("id") Long id) {

@@ -5,6 +5,8 @@ import backend.msaccount.domain.model.Movement;
 import backend.msaccount.presentation.dto.MovementRequest;
 import backend.msaccount.presentation.dto.MovementResponse;
 import backend.msaccount.presentation.mapper.MovementMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class MovementController {
         this.registerMovementUseCase = registerMovementUseCase;
     }
 
+    @Operation(summary = "Create a movement", description = "Create a movement")
+    @ApiResponse(responseCode = "201", description = "Movement created")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<MovementResponse> create(@Valid @RequestBody MovementRequest request) {
