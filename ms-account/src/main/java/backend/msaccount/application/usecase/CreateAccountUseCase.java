@@ -6,6 +6,7 @@ import backend.msaccount.domain.repository.AccountRepository;
 import backend.msaccount.infrastructure.client.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -18,6 +19,7 @@ public class CreateAccountUseCase {
         this.clientService = clientService;
     }
 
+    @Transactional
     public Account execute(Account account) {
         Boolean exists = clientService.existsById(account.getClientId())
                 .block();

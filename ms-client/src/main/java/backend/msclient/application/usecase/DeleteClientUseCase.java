@@ -5,6 +5,7 @@ import backend.msclient.domain.model.Client;
 import backend.msclient.domain.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -15,6 +16,7 @@ public class DeleteClientUseCase {
         this.clientRepository = clientRepository;
     }
 
+    @Transactional
     public Client execute(Long id) {
         log.info("Deleting client with identification: {}", id);
 

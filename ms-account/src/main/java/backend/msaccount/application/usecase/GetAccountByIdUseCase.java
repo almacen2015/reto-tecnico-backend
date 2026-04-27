@@ -5,6 +5,7 @@ import backend.msaccount.domain.model.Account;
 import backend.msaccount.domain.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -15,6 +16,7 @@ public class GetAccountByIdUseCase {
         this.accountRepository = accountRepository;
     }
 
+    @Transactional(readOnly = true)
     public Account execute(Long id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> {

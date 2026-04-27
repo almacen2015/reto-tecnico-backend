@@ -8,6 +8,7 @@ import backend.msaccount.presentation.dto.AccountReport;
 import backend.msaccount.presentation.dto.MovementReport;
 import backend.msaccount.presentation.dto.ReportResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +23,7 @@ public class GenerateReportUseCase {
         this.movementRepository = movementRepository;
     }
 
+    @Transactional(readOnly = true)
     public ReportResponse execute(Long clientId, LocalDate start, LocalDate end) {
         List<Account> accounts = accountRepository.findByClientId(clientId);
 
