@@ -7,6 +7,8 @@ import backend.msclient.application.usecase.GetClientByIdUseCase;
 import backend.msclient.domain.model.Client;
 import backend.msclient.presentation.dto.ClientRequest;
 import backend.msclient.presentation.dto.ClientResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,9 @@ public class ClientController {
         this.deleteClientUseCase = deleteClientUseCase;
     }
 
+    @Operation(summary = "Cahnge status a client", description = "Change status a client")
+    @ApiResponse(responseCode = "200", description = "Client updated")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Mono<ClientResponse> deleteClient(@PathVariable("id") Long id) {
@@ -42,6 +47,9 @@ public class ClientController {
                         log.error("Client delete failed with id: {}", id, throwable));
     }
 
+    @Operation(summary = "Create client", description = "Create a new client")
+    @ApiResponse(responseCode = "201", description = "Client created successfully")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<ClientResponse> createClient(@RequestBody @Valid ClientRequest request) {
@@ -60,6 +68,9 @@ public class ClientController {
                 );
     }
 
+    @Operation(summary = "Get a client", description = "Get a clint by clientId")
+    @ApiResponse(responseCode = "200", description = "Client found")
+    @ApiResponse(responseCode = "400", description = "Request invalid")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Mono<Client> getClientById(@PathVariable("id") Long id) {

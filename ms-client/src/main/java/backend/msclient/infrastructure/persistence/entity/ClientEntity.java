@@ -1,5 +1,6 @@
 package backend.msclient.infrastructure.persistence.entity;
 
+import backend.msclient.domain.model.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,12 +16,20 @@ public class ClientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+
+    @Column(nullable = false, unique = true)
     private String identification;
+
     private String address;
     private String phone;
 
+    @Column(nullable = false)
     private String password;
     private Boolean status;
 }

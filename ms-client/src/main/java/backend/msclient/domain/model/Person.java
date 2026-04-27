@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class Person {
     private String name;
-    private String gender;
+    private Gender gender;
     private String identification;
     private String address;
     private String phone;

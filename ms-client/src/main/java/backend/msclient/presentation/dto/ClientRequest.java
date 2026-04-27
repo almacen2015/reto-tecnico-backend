@@ -1,16 +1,18 @@
 package backend.msclient.presentation.dto;
 
+import backend.msclient.domain.model.Gender;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public record ClientRequest(
-        @NotBlank
+        @NotBlank(message = "The name is required")
         String name,
 
-        @NotBlank
-        String gender,
+        @NotNull(message = "The gender is required")
+        Gender gender,
 
-        @NotBlank
+        @NotBlank(message = "The identification is required")
         String identification,
 
         @NotBlank
@@ -19,10 +21,10 @@ public record ClientRequest(
         @NotBlank
         String phone,
 
-        @NotBlank
+        @NotBlank(message = "The password is required")
         String password,
 
-        @NotNull
+        @NotNull(message = "The status is required")
         Boolean status
         ) {
 }
