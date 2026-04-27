@@ -15,7 +15,7 @@ public class ClientService {
 
     public Mono<Boolean> existsById(Long id) {
         return webClient.get()
-                .uri("/clients/{id}", id)
+                .uri("/{id}", id)
                 .retrieve()
                 .bodyToMono(Object.class)
                 .map(response -> true)
