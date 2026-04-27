@@ -35,13 +35,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ClientNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Mono<String> handleClientNotFoundException(ClientNotFoundException e) {
+    public Mono<ErrorResponse> handleClientNotFoundException(ClientNotFoundException e) {
         log.error(e.getMessage(), e);
         return Mono.just(
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST.value())
                         .message(e.getMessage())
-                        .build().toString());
+                        .build());
     }
 
     @ExceptionHandler(WebExchangeBindException.class)
