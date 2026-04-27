@@ -13,4 +13,6 @@ public interface AccountRepository {
     List<Account> findAll();
 
     void updateStatus(Long id, Boolean status);
+
+    List<Account> findByClientId(Long clientId);
 }

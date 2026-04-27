@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
@@ -16,6 +17,15 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     public AccountRepositoryImpl(AccountJpaRepository accountJpaRepository) {
         this.accountJpaRepository = accountJpaRepository;
+    }
+
+    @Override
+    public List<Account> findByClientId(Long clientId) {
+        List<AccountEntity> accountEntities = accountJpaRepository.findByClientId(clientId);
+
+        return accountEntities.stream()
+                .map(AccountMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
