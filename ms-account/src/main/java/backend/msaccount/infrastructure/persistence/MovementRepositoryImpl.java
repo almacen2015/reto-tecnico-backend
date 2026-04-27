@@ -25,7 +25,6 @@ public class MovementRepositoryImpl implements MovementRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Movement> findByAccountIdAndDateBetween(Long accountId, LocalDateTime startDate, LocalDateTime endDate) {
         List<MovementEntity> movementsEntity = movementJpaRepository.findByAccountIdAndDateBetween(accountId, startDate, endDate);
 
@@ -35,7 +34,6 @@ public class MovementRepositoryImpl implements MovementRepository {
     }
 
     @Override
-    @Transactional
     public Movement save(Movement movement) {
         AccountEntity account = accountJpaRepository.findById(movement.getAccountId())
                 .orElseThrow(() -> new RuntimeException("Account not found"));
@@ -46,7 +44,6 @@ public class MovementRepositoryImpl implements MovementRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Movement> findByAccountId(Long accountId) {
         return movementJpaRepository.findByAccountId(accountId)
                 .stream()
