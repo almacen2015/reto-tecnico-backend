@@ -20,8 +20,8 @@ public class ReportController {
     @GetMapping("/{clientId}")
     public Mono<ResponseEntity<ReportResponse>> generateReport(
             @PathVariable("clientId") Long clientId,
-            @RequestParam LocalDate startDate,
-            @RequestParam LocalDate endDate
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate
     ) {
         return Mono.fromCallable(() -> useCase.execute(clientId, startDate, endDate))
                 .subscribeOn(Schedulers.boundedElastic())
