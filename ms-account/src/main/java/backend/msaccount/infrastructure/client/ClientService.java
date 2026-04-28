@@ -1,6 +1,6 @@
 package backend.msaccount.infrastructure.client;
 
-import backend.msaccount.presentation.dto.ClientResponse;
+import backend.msaccount.infrastructure.client.dto.ClientResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;

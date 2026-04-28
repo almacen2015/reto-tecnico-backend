@@ -1,6 +1,7 @@
 package backend.msaccount.presentation.exception;
 
 import backend.msaccount.domain.exception.AccountNotFoundException;
+import backend.msaccount.domain.exception.ClientInactiveException;
 import backend.msaccount.domain.exception.InsufficientBalanceException;
 import backend.msaccount.domain.exception.InvalidMovementException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,18 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ClientInactiveException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Mono<ErrorResponse> handleInvalidEnum(ClientInactiveException ex, ServerWebExchange request) {
+        return Mono.just(
+                ErrorResponse.builder()
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .message(ex.getMessage())
+                        .path(request.getRequest().getPath().toString())
+                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
 
     @ExceptionHandler(ServerWebInputException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
