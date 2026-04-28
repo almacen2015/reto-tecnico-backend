@@ -1,5 +1,6 @@
 package backend.msaccount.infrastructure.client;
 
+import backend.msaccount.presentation.dto.ClientResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -13,12 +14,13 @@ public class ClientService {
         this.webClient = webClient;
     }
 
-    public Mono<Boolean> existsById(Long id) {
+    public Mono<Boolean> isClientActive(Long id) {
         return webClient.get()
                 .uri("/{id}", id)
                 .retrieve()
-                .bodyToMono(Object.class)
-                .map(response -> true)
+                .bodyToMono(ClientResponse.class)
+                .map(ClientResponse::status)
+                .defaultIfEmpty(false)
                 .onErrorResume(ex -> Mono.just(false));
 
     }

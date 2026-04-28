@@ -1,6 +1,6 @@
 package backend.msaccount.application.usecase;
 
-import backend.msaccount.domain.exception.ClientNotFoundException;
+import backend.msaccount.domain.exception.ClientInactiveException;
 import backend.msaccount.domain.model.Account;
 import backend.msaccount.domain.repository.AccountRepository;
 import backend.msaccount.infrastructure.client.ClientService;
@@ -21,12 +21,12 @@ public class CreateAccountUseCase {
 
     @Transactional
     public Account execute(Account account) {
-        Boolean exists = clientService.existsById(account.getClientId())
+        Boolean isActive = clientService.isClientActive(account.getClientId())
                 .block();
 
-        if (Boolean.FALSE.equals(exists)) {
-            log.error("Client not found with id: {}", account.getClientId());
-            throw new ClientNotFoundException("Client not found");
+        if (Boolean.FALSE.equals(isActive)) {
+            log.error("Client inactive with id: {}", account.getClientId());
+            throw new ClientInactiveException("Client inactive");
         }
 
         return accountRepository.save(account);
