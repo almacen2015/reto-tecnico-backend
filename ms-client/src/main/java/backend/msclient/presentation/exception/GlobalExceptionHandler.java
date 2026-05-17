@@ -3,6 +3,8 @@ package backend.msclient.presentation.exception;
 import backend.msclient.domain.exception.ClientNotFoundException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +26,7 @@ public class GlobalExceptionHandler {
     public Mono<ErrorResponse> handleInvalidEnum(ServerWebInputException ex) {
         log.error(ex.getMessage(), ex);
 
-        String message = "Invalid request";
+        String message = ex.getMostSpecificCause().getMessage();
 
         return Mono.just(
                 ErrorResponse.builder()
@@ -41,6 +43,17 @@ public class GlobalExceptionHandler {
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST.value())
                         .message(e.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Mono<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        log.error(e.getMessage(), e);
+        return Mono.just(
+                ErrorResponse.builder()
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .message("Data integrity violation: " + e.getMostSpecificCause().getMessage())
                         .build());
     }
 

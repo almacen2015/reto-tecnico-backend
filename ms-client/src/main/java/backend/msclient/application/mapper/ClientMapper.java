@@ -26,6 +26,7 @@ public class ClientMapper {
                 .address(client.getAddress())
                 .phone(client.getPhone())
                 .status(client.getStatus())
+                .password(client.getPassword())
                 .build();
     }
 }
