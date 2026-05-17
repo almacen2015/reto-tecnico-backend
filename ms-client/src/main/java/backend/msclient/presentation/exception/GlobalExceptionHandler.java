@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
         return Mono.just(
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST.value())
-                        .message(e.getMessage())
+                        .message("Data integrity violation: " + e.getMostSpecificCause().getMessage())
                         .build());
     }
 
