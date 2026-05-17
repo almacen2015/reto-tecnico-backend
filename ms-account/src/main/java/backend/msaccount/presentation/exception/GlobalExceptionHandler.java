@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ClientInactiveException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Mono<ErrorResponse> handleInvalidEnum(ClientInactiveException ex, ServerWebExchange request) {
+    public Mono<ErrorResponse> handleClientInactiveException(ClientInactiveException ex, ServerWebExchange request) {
         return Mono.just(
                 ErrorResponse.builder()
                         .status(HttpStatus.BAD_REQUEST.value())
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     public Mono<ErrorResponse> handleInvalidEnum(ServerWebInputException ex, ServerWebExchange request) {
         log.error(ex.getMessage(), ex);
 
-        String message = "Invalid request";
+        String message = ex.getMostSpecificCause().getMessage();
 
         return Mono.just(
                 ErrorResponse.builder()
