@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     public Mono<ErrorResponse> handleInvalidEnum(ServerWebInputException ex) {
         log.error(ex.getMessage(), ex);
 
-        String message = "Invalid request";
+        String message = ex.getMostSpecificCause().getMessage();
 
         return Mono.just(
                 ErrorResponse.builder()
